@@ -1,7 +1,7 @@
 ﻿#ifndef WINDOW_H
 	#define WINDOW_H
 	
-#include<GL/freeglut.h>
+#include "shader.h"
 
 namespace grafx{
 	class Window{
@@ -61,13 +61,19 @@ void grafx::run(int argc, char **argv, Window* win){
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(window->getWidth(), window->getHeight());
 	glutCreateWindow(window->getTitle());
-	win->init();
+	
+	GLenum err = glewInit();
+	if (GLEW_OK != err){
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}else{
+		win->init();
 
-	glutDisplayFunc(display);
-	glutIdleFunc(display);
-	glutReshapeFunc(changeSize);
-	glutMainLoop();
-	win->dispose();
+		glutDisplayFunc(display);
+		glutIdleFunc(display);
+		glutReshapeFunc(changeSize);
+		glutMainLoop();
+		win->dispose();
+	}
 }
 
 #endif

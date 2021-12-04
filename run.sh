@@ -1,1 +1,1 @@
-g++ main.cpp `pkg-config --static --libs freeglut`
+g++ main.cpp `pkg-config --static --libs  glew freeglut`

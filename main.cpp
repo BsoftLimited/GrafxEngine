@@ -4,10 +4,13 @@
 class Test : public grafx::Window{
 	public:
 		Test(char* title) : Window(title, 800, 480){}
-		void init(){}
+		void init(){
+			grafx::SimpleMaterial material;
+			//std::cout<<material.getProgram();
+		}
 		void render(){}
 		void resize(int width, int height){}
-		void update(float deltaTime){ std::cout<<1/deltaTime<<std::endl; }
+		void update(float deltaTime){ }
 		void dispose(){}
 };
 
