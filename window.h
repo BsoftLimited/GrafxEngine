@@ -34,24 +34,38 @@ int grafx::Window::getHeight(){ return this->height; }
 char* grafx::Window::getTitle(){ return this->title; }
 
 grafx::Window* window;
+int oldTimeSinceStart = 0;
 
 void display(){
 	glClearColor(0.0,0.0,0.1,1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	window->render();
-	glFlush();
+	
+	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+	int deltaTime = timeSinceStart - oldTimeSinceStart;
+	oldTimeSinceStart = timeSinceStart;
+	window->update(deltaTime/1000.0);
+	
+	glutSwapBuffers();
+}
+
+void changeSize(int width, int height){
+	glViewport(0, 0, width, height);
+	window->resize(width, height);
 }
 
 void grafx::run(int argc, char **argv, Window* win){
 	window = win;
 
 	glutInit(&argc,argv);
-	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(window->getWidth(), window->getHeight());
 	glutCreateWindow(window->getTitle());
 	win->init();
 
 	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutReshapeFunc(changeSize);
 	glutMainLoop();
 	win->dispose();
 }

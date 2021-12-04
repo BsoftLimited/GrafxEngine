@@ -1,15 +1,13 @@
-#include "window.h"
 #include<iostream>
+#include "window.h"
 
 class Test : public grafx::Window{
 	public:
 		Test(char* title) : Window(title, 800, 480){}
 		void init(){}
-		void render(){
-			std::cout<<"rendering"<<std::endl;
-		}
+		void render(){}
 		void resize(int width, int height){}
-		void update(float deltaTime){}
+		void update(float deltaTime){ std::cout<<1/deltaTime<<std::endl; }
 		void dispose(){}
 };
 
