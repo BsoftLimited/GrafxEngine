@@ -1,25 +1,21 @@
-#include <GLFW/glfw3.h>
+#include "window.h"
+#include<iostream>
 
-#include<GL/freeglut.h>
-
-//Program to create an empty Widdow
-void init(){
-	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);	//Line C
-	glutInitWindowSize(800,480);
-	glutCreateWindow("Grafx Engine");
-}
-
-void display(){
-	glClearColor(0.0,0.0,0.1,1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glFlush();
-}
+class Test : public grafx::Window{
+	public:
+		Test(char* title) : Window(title, 800, 480){}
+		void init(){}
+		void render(){
+			std::cout<<"rendering"<<std::endl;
+		}
+		void resize(int width, int height){}
+		void update(float deltaTime){}
+		void dispose(){}
+};
 
 int main(int argc,char **argv){
-	glutInit(&argc,argv);			//Line A
-	init();					//Line B
-	glutDisplayFunc(display);
-	glutMainLoop();
-	
+	char title[] = "Grafx Engine";
+	Test test(title);
+	grafx::run(argc, argv, &test);
 	return 0;
 }
