@@ -2,6 +2,7 @@
 	#define UTILS_H
 
 #include <stdio.h>
+#include <vector>
 #include <cmath>
 
 namespace grafx{

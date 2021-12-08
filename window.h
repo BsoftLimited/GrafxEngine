@@ -59,21 +59,29 @@ void grafx::run(int argc, char **argv, Window* win){
 
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitContextVersion (3, 1);
+    glutInitContextFlags (GLUT_CORE_PROFILE | GLUT_DEBUG);
+    glutInitContextProfile(GLUT_FORWARD_COMPATIBLE);
 	glutInitWindowSize(window->getWidth(), window->getHeight());
 	glutCreateWindow(window->getTitle());
 	
+	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (GLEW_OK != err){
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-	}else{
-		win->init();
-
+	} else {
+	    win->init();
 		glutDisplayFunc(display);
 		glutIdleFunc(display);
 		glutReshapeFunc(changeSize);
 		glutMainLoop();
 		win->dispose();
 	}
+	/*std::cout<<"\tUsing glew "<<glewGetString(GLEW_VERSION)<<std::endl;
+	std::cout<<"\tVendor: "<<glGetString (GL_VENDOR)<<std::endl;
+	std::cout<<"\tRenderer: "<<glGetString (GL_RENDERER)<<std::endl;
+	std::cout<<"\tVersion: "<<glGetString (GL_VERSION)<<std::endl;
+	std::cout<<"\tGLSL: "<<glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;*/
 }
 
 #endif

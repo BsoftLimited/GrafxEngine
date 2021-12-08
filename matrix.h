@@ -137,8 +137,9 @@ grafx::Matrix* grafx::Matrix::transpose(){
 void grafx::Matrix::print(){
 	for(int i = 0; i < this->size; i++){
 		for(int j = 0; j < this->size; j++){
-			printf("%f ", this->data[i]);
+			printf("%f\t\t ", this->data[i * this->size + j]);
 		}
+		printf("\n");
 	}
 }
 

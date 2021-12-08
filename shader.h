@@ -1,12 +1,11 @@
 ﻿#ifndef SHADER_H
 	#define SHADER_H
 
-#include "matrix.h"
+#include "renderer.h"
 #include <GL/glew.h>
 #include<GL/freeglut.h>
 
 namespace grafx{
-	struct Vertex{ float Position[3]; float Color[4]; };
 	class Shader{
 		private:
 			GLuint program;
@@ -45,6 +44,7 @@ GLuint grafx::Shader::BuildShader(const char *source, GLenum shaderType){
 		GLchar messages[256];
 		glGetShaderInfoLog(shaderHandle, sizeof(messages), 0, &messages[0]);
 		std::cout<<"compile glsl error : "<<messages<<std::endl;
+		std::cout<<source<<std::endl;
 	}
 	return shaderHandle;
 }
@@ -63,7 +63,7 @@ void grafx::Shader::init(const char* vertexShader, const char* fragmentShader){
 	if (linkSuccess == GL_FALSE){
 		GLchar messages[256];
 		glGetProgramInfoLog(this->program, sizeof(messages), 0, &messages[0]);
-		std::cout<<"compile glsl error : "<<messages<<std::endl;
+		std::cout<<"linking glsl error : "<<messages<<std::endl;
 	}
 }
 
@@ -95,24 +95,19 @@ GLuint grafx::Shader::getAttributeLocation(const char* name){
 
 grafx::SimpleMaterial::SimpleMaterial(){
 	const char* vertex =
-		"uniform mat4 u_transform;"
-		"uniform mat4 u_projection;"
-		"uniform mat4 u_view;"
-
-		"attribute vec3 a_Position;"
-		"attribute vec4 a_Color;"
+		"#version 140 \n"
 		
-		"varying vec4 frag_Color;"
-		
-		"void main(void) {"
-		    "frag_Color = a_Color;"
-		    "gl_Position = vec4(a_Position, 1.0);"
-		"}";
+        "in vec3 position; \n"
+        
+        "void main(){ \n"
+         "   gl_Position = vec4(position, 1.0) * 0.5; \n"
+        "}";
 	const char* fragment =
-		"varying  vec4 frag_Color;"
-
-		"void main() {"
-			"gl_FragColor = frag_Color;"
+		"#version 140 \n"
+		
+		"out  vec4 colorFinal; \n"
+		"void main() { \n"
+			"colorFinal = vec4(1.0f, 0.5f, 0.2f, 1.0f); \n"
 		"}";
 	this->init(vertex, fragment);
 }
