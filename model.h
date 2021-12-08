@@ -52,7 +52,7 @@ void grafx::Model::setupVertexBuffer(const GLfloat* vertices){
 	
 	glGenBuffers(1, &this->vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, this->vertexCount * sizeof(GLfloat), &vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, this->vertexCount * sizeof(GLfloat), &vertice, GL_STATIC_DRAW);
 }
 
 void grafx::Model::setupIndexBuffer(const GLint* indices){

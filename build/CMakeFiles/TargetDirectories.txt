@@ -1,0 +1,3 @@
+/home/bsoft/Documents/GrafxEngine/build/CMakeFiles/edit_cache.dir
+/home/bsoft/Documents/GrafxEngine/build/CMakeFiles/rebuild_cache.dir
+/home/bsoft/Documents/GrafxEngine/build/CMakeFiles/GrafxEngine.dir
